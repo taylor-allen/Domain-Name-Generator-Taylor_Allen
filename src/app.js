@@ -10,8 +10,7 @@ window.onload = () => {
 
   document.querySelector("#btn").addEventListener("click", () => {
     domainNames = generateDomain();
-    document.querySelector("#the-domain").innerHTML =
-      domainNames[Math.floor(Math.random() * domainNames.length)];
+    displayDomains(domainNames);
   });
 
   let generateDomain = () => {
@@ -22,16 +21,24 @@ window.onload = () => {
 
     let generatedDomains = [];
 
-    for (let i = 0; i < pronoun.length; i++) {
-      for (let j = 0; j < adj.length; j++) {
-        for (let k = 0; k < noun.length; k++) {
-          for (let l = 0; l < dom.length; l++) {
-            let domainName = `${pronoun[i]}${adj[j]}${noun[k]}${dom[l]}`;
-            generatedDomains.push(domainName);
-          }
-        }
-      }
+    for (let i = 0; i < 8; i++) {
+      // Limit to 8 iterations
+      let randomPronoun = pronoun[Math.floor(Math.random() * pronoun.length)];
+      let randomAdj = adj[Math.floor(Math.random() * adj.length)];
+      let randomNoun = noun[Math.floor(Math.random() * noun.length)];
+      let randomDom = dom[Math.floor(Math.random() * dom.length)];
+
+      let domainName = `${randomPronoun}${randomAdj}${randomNoun}${randomDom}`;
+      generatedDomains.push(domainName);
     }
+
     return generatedDomains;
+  };
+
+  let displayDomains = domains => {
+    let domainList = domains.map(domain => `<li>${domain}</li>`).join("");
+    document.querySelector(
+      "#the-domain"
+    ).innerHTML = `<ul style="list-style-type: none; padding: 0;">${domainList}</ul>`;
   };
 };
